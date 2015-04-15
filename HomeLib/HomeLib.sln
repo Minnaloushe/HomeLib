@@ -3,8 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{32C66AAD-EBA5-41EA-A58F-0D618A4E7802}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeLib.Entity.Interfaces", "Entities\HomeLib.Entity.Interfaces\HomeLib.Entity.Interfaces.csproj", "{12D05EEB-2DE2-440E-B7AD-B764C0B2D926}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12D05EEB-2DE2-440E-B7AD-B764C0B2D926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12D05EEB-2DE2-440E-B7AD-B764C0B2D926}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12D05EEB-2DE2-440E-B7AD-B764C0B2D926}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12D05EEB-2DE2-440E-B7AD-B764C0B2D926}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{12D05EEB-2DE2-440E-B7AD-B764C0B2D926} = {32C66AAD-EBA5-41EA-A58F-0D618A4E7802}
 	EndGlobalSection
 EndGlobal
