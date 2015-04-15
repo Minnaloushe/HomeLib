@@ -1,8 +1,8 @@
 ﻿namespace HomeLib.Entity.Interfaces.Storage
 {
-    public interface IDbProvider<T, TKey> where T : IBaseEntity<TKey>
+    public interface IDbProvider<T, in TKey> where T : IBaseEntity<TKey>, new()
     {
-        T GetById(TKey Id);
+        T GetById(TKey id);
         T Create();
         void Insert(T entity);
         void Update(T entity);
