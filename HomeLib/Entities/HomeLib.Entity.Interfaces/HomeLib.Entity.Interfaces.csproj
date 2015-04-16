@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\IAuthor.cs" />
     <Compile Include="Context\IBook.cs" />
     <Compile Include="Context\IContextEntity.cs" />
     <Compile Include="Context\IContextProvider.cs" />

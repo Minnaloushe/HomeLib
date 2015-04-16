@@ -12,7 +12,7 @@ using Dapper;
 
 namespace HomeLib.Entity.Database
 {
-    public abstract class DbEntityProvider<T, TKey> : IDbProvider<T, TKey>, IDisposable where T : IBaseEntity<TKey>, new()
+    public abstract class DbEntityProvider<T, TKey> : IDbProvider<T, TKey>, IDisposable where T : IBaseEntity<TKey>
     {
         private readonly IDbConnection _connection;
 
@@ -24,11 +24,6 @@ namespace HomeLib.Entity.Database
         public T GetById(TKey id)
         {
             return _connection.ExecuteScalar<T>(GetRetreiveCommandText(), new {Id = id});
-        }
-
-        public T Create()
-        {
-            return new T();
         }
 
         public void Insert(T entity)
