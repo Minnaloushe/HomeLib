@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="DTO\Author.cs" />
     <Compile Include="DTO\Book.cs" />
+    <Compile Include="DTO\BookToAuthorLink.cs" />
+    <Compile Include="DTO\Serie.cs" />
     <Compile Include="IoC\DbEntityModule.cs" />
     <Compile Include="IoC\DbProviderModule.cs" />
     <Compile Include="Providers\AuthorDbProvider.cs" />

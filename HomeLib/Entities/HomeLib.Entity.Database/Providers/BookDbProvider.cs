@@ -11,4 +11,16 @@ namespace HomeLib.Entity.Database.Providers
         {
         }
     }
+    public class SerieDbProvider : DbEntityProvider<ISerie, Guid>
+    {
+        public SerieDbProvider(IDbConnection connection) : base(connection)
+        {
+        }
+    }
+    public class BookToAuthorLinkDbProvider : DbEntityProvider<IBookToAuthorLink, Guid>
+    {
+        public BookToAuthorLinkDbProvider(IDbConnection connection) : base(connection)
+        {
+        }
+    }
 }

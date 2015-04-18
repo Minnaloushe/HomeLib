@@ -47,8 +47,9 @@
     <Compile Include="Storage\IAuthor.cs" />
     <Compile Include="Storage\IBaseEntity.cs" />
     <Compile Include="Storage\IBook.cs" />
-    <Compile Include="Storage\IBookToAuthorsLink.cs" />
+    <Compile Include="Storage\IBookToAuthorLink.cs" />
     <Compile Include="Storage\IDbProvider.cs" />
+    <Compile Include="Storage\ISerie.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
