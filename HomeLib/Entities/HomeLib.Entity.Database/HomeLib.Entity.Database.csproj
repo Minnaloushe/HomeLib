@@ -49,10 +49,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\ArchiveFile.cs" />
     <Compile Include="DTO\Author.cs" />
     <Compile Include="DTO\Book.cs" />
-    <Compile Include="DTO\BookToAuthorLink.cs" />
+    <Compile Include="DTO\AuthorToBookLink.cs" />
+    <Compile Include="DTO\BookCategoriesToBookLink.cs" />
+    <Compile Include="DTO\BookGenresToBookLink.cs" />
+    <Compile Include="DTO\Category.cs" />
+    <Compile Include="DTO\Genre.cs" />
     <Compile Include="DTO\Serie.cs" />
+    <Compile Include="DTO\Setting.cs" />
     <Compile Include="IoC\DbEntityModule.cs" />
     <Compile Include="IoC\DbProviderModule.cs" />
     <Compile Include="Providers\AuthorDbProvider.cs" />

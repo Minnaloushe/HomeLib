@@ -17,7 +17,7 @@ namespace HomeLib.Entity.Database.Providers
         {
         }
     }
-    public class BookToAuthorLinkDbProvider : DbEntityProvider<IBookToAuthorLink, Guid>
+    public class BookToAuthorLinkDbProvider : DbEntityProvider<IAuthorToBookLink, Guid>
     {
         public BookToAuthorLinkDbProvider(IDbConnection connection) : base(connection)
         {

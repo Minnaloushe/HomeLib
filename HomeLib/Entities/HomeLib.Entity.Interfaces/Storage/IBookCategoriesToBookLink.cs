@@ -2,9 +2,9 @@
 
 namespace HomeLib.Entity.Interfaces.Storage
 {
-    public interface IBookToAuthorLink : IBaseEntity<Guid>
+    public interface IBookCategoriesToBookLink : IBaseEntity<Guid>
     {
         Guid BookId { get; set; }
-        Guid AuthorId { get; set; }
+        Guid CategoryId { get; set; }
     }
 }

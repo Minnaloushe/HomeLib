@@ -8,7 +8,6 @@ namespace HomeLib.Entity.Interfaces.Context
         string FirstName { get; set; }
         string MiddleName { get; set; }
         string LastName { get; set; }
-
-        ICollection<IBook> Books { get; }
+        IManyToManyLinkedProperty<IBook> Books { get; }
     }
 }

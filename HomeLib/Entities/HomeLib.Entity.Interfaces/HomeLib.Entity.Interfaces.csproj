@@ -39,17 +39,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\IArchiveFile.cs" />
     <Compile Include="Context\IAuthor.cs" />
     <Compile Include="Context\IBook.cs" />
+    <Compile Include="Context\ICategory.cs" />
     <Compile Include="Context\IContextEntity.cs" />
     <Compile Include="Context\IContextProvider.cs" />
+    <Compile Include="Context\IGenre.cs" />
+    <Compile Include="Context\IManyToManyLinkedProperty.cs" />
+    <Compile Include="Context\ISerie.cs" />
+    <Compile Include="Context\ISetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Storage\IArchiveFile.cs" />
     <Compile Include="Storage\IAuthor.cs" />
     <Compile Include="Storage\IBaseEntity.cs" />
     <Compile Include="Storage\IBook.cs" />
-    <Compile Include="Storage\IBookToAuthorLink.cs" />
+    <Compile Include="Storage\IAuthorToBookLink.cs" />
+    <Compile Include="Storage\IBookCategoriesToBookLink.cs" />
+    <Compile Include="Storage\IBookGenresToBookLink.cs" />
+    <Compile Include="Storage\ICategory.cs" />
     <Compile Include="Storage\IDbProvider.cs" />
+    <Compile Include="Storage\IGenre.cs" />
     <Compile Include="Storage\ISerie.cs" />
+    <Compile Include="Storage\ISetting.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

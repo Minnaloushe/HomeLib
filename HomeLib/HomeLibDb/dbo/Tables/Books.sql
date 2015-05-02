@@ -4,7 +4,7 @@
     [SerieIndex]    INT              NULL,
     [FileIndex]     BIGINT           NOT NULL,
     [ArchivedSize]  BIGINT           NOT NULL,
-    [FileName]      NVARCHAR (255)   NULL,
+    [FileName]      NVARCHAR (255)   NOT NULL,
     [Reserved8]     INT              NOT NULL,
     [Format]        NVARCHAR (255)   NULL,
     [Date]          DATETIME         NOT NULL,
