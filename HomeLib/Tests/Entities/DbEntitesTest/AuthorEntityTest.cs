@@ -57,11 +57,8 @@ namespace DbEntitesTest
 
                 #region Assert
 
-                Assert.AreEqual(expectedAuthor.Id, actualAuthor.Id);
-                Assert.AreEqual(expectedAuthor.FirstName, actualAuthor.FirstName);
-                Assert.AreEqual(expectedAuthor.MiddleName, actualAuthor.MiddleName);
-                Assert.AreEqual(expectedAuthor.LastName, actualAuthor.LastName);
-
+                Assert.IsTrue(expectedAuthor.Equals(actualAuthor));
+               
                 #endregion
             }
         }
@@ -99,10 +96,7 @@ namespace DbEntitesTest
 
                 var actualAuthor = provider.GetById(expectedAuthor.Id);
 
-                Assert.AreEqual(expectedAuthor.Id, actualAuthor.Id);
-                Assert.AreEqual(expectedAuthor.FirstName, actualAuthor.FirstName);
-                Assert.AreEqual(expectedAuthor.MiddleName, actualAuthor.MiddleName);
-                Assert.AreEqual(expectedAuthor.LastName, actualAuthor.LastName);
+                Assert.IsTrue(expectedAuthor.Equals(actualAuthor));
 
                 #endregion
             }
