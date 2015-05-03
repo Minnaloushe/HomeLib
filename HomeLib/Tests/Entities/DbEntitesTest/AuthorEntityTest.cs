@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using Autofac;
+using HomeLib.Entity.Database;
 using HomeLib.Entity.Database.DTO;
 using HomeLib.Entity.Database.IoC;
 using HomeLib.Entity.Database.Providers;
@@ -33,91 +34,179 @@ namespace DbEntitesTest
         [TestMethod]
         public void GetAuthorByIdTest()
         {
-            #region Arrange 
+            using (var provider = Container.Resolve<IAuthorDbProvider>())
+            {
+                #region Arrange 
 
-            var expectedAuthor = Container.Resolve<IAuthor>();
+                var expectedAuthor = Container.Resolve<IAuthor>();
 
-            expectedAuthor.Id = Guid.NewGuid();
-            expectedAuthor.FirstName = StringHelper.GetAnonymousString();
-            expectedAuthor.MiddleName = StringHelper.GetAnonymousString();
-            expectedAuthor.LastName = StringHelper.GetAnonymousString();
+                expectedAuthor.Id = Guid.NewGuid();
+                expectedAuthor.FirstName = ValueHelper.GetAnonymousString();
+                expectedAuthor.MiddleName = ValueHelper.GetAnonymousString();
+                expectedAuthor.LastName = ValueHelper.GetAnonymousString();
 
-            Container.Resolve<IAuthorDbProvider>().Insert(expectedAuthor);
+                provider.Insert(expectedAuthor);
 
-            #endregion
+                #endregion
 
-            #region Act
+                #region Act
 
-            var actualAuthor = Container.Resolve<IAuthorDbProvider>().GetById(expectedAuthor.Id);
+                var actualAuthor = provider.GetById(expectedAuthor.Id);
 
-            #endregion
+                #endregion
 
-            #region Assert
+                #region Assert
 
-            Assert.AreEqual(expectedAuthor.Id, actualAuthor.Id);
-            Assert.AreEqual(expectedAuthor.FirstName, actualAuthor.FirstName);
-            Assert.AreEqual(expectedAuthor.MiddleName, actualAuthor.MiddleName);
-            Assert.AreEqual(expectedAuthor.LastName, actualAuthor.LastName);
+                Assert.AreEqual(expectedAuthor.Id, actualAuthor.Id);
+                Assert.AreEqual(expectedAuthor.FirstName, actualAuthor.FirstName);
+                Assert.AreEqual(expectedAuthor.MiddleName, actualAuthor.MiddleName);
+                Assert.AreEqual(expectedAuthor.LastName, actualAuthor.LastName);
 
-            #endregion
+                #endregion
+            }
         }
 
         [TestMethod]
         public void UpdateAuthorTest()
         {
-            #region Arrange
+            using (var provider = Container.Resolve<IAuthorDbProvider>())
+            {
+                #region Arrange
 
-            var provider = Container.Resolve<IAuthorDbProvider>();
-            var expectedAuthor = Container.Resolve<IAuthor>();
 
-            expectedAuthor.Id = Guid.NewGuid();
-            expectedAuthor.FirstName = StringHelper.GetAnonymousString();
-            expectedAuthor.MiddleName = StringHelper.GetAnonymousString();
-            expectedAuthor.LastName = StringHelper.GetAnonymousString();
+                var expectedAuthor = Container.Resolve<IAuthor>();
 
-            provider.Insert(expectedAuthor);
+                expectedAuthor.Id = Guid.NewGuid();
+                expectedAuthor.FirstName = ValueHelper.GetAnonymousString();
+                expectedAuthor.MiddleName = ValueHelper.GetAnonymousString();
+                expectedAuthor.LastName = ValueHelper.GetAnonymousString();
 
-            expectedAuthor.FirstName = StringHelper.GetAnonymousString();
-            expectedAuthor.MiddleName = StringHelper.GetAnonymousString();
-            expectedAuthor.LastName = StringHelper.GetAnonymousString();
+                provider.Insert(expectedAuthor);
 
-            #endregion
+                expectedAuthor.FirstName = ValueHelper.GetAnonymousString();
+                expectedAuthor.MiddleName = ValueHelper.GetAnonymousString();
+                expectedAuthor.LastName = ValueHelper.GetAnonymousString();
 
-            #region Act
+                #endregion
 
-            provider.Update(expectedAuthor);
+                #region Act
 
-            #endregion
+                provider.Update(expectedAuthor);
 
-            #region Assert
+                #endregion
 
-            var actualAuthor = provider.GetById(expectedAuthor.Id);
+                #region Assert
 
-            Assert.AreEqual(expectedAuthor.Id, actualAuthor.Id);
-            Assert.AreEqual(expectedAuthor.FirstName, actualAuthor.FirstName);
-            Assert.AreEqual(expectedAuthor.MiddleName, actualAuthor.MiddleName);
-            Assert.AreEqual(expectedAuthor.LastName, actualAuthor.LastName);
+                var actualAuthor = provider.GetById(expectedAuthor.Id);
 
-            #endregion
+                Assert.AreEqual(expectedAuthor.Id, actualAuthor.Id);
+                Assert.AreEqual(expectedAuthor.FirstName, actualAuthor.FirstName);
+                Assert.AreEqual(expectedAuthor.MiddleName, actualAuthor.MiddleName);
+                Assert.AreEqual(expectedAuthor.LastName, actualAuthor.LastName);
+
+                #endregion
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DbEntityProvider<IAuthor, Author, Guid>.EntityNotFoundException))]
+        public void GetByIdFailTest()
+        {
+            using (var provider = Container.Resolve<IAuthorDbProvider>())
+            {
+
+                #region Arrange
+
+                #endregion
+
+                #region Act
+
+                provider.GetById(Guid.NewGuid());
+
+                #endregion
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DbEntityProvider<IAuthor, Author, Guid>.EntityNotFoundException))]
+        public void UpdateFailTest()
+        {
+            using (var provider = Container.Resolve<IAuthorDbProvider>())
+            {
+                #region Arrange
+
+                var entity = Container.Resolve<IAuthor>();
+                entity.Id = Guid.NewGuid();
+
+                #endregion
+
+                #region Act
+
+                provider.Update(entity);
+
+                #endregion
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SqlException))]
+        public void InsertFailTest()
+        {
+            using (var provider = Container.Resolve<IAuthorDbProvider>())
+            {
+                #region Arrange
+
+                var entity = Container.Resolve<IAuthor>();
+                entity.Id = Guid.NewGuid();
+                entity.FirstName = ValueHelper.GetAnonymousString();
+                entity.MiddleName = ValueHelper.GetAnonymousString();
+                entity.LastName = ValueHelper.GetAnonymousString();
+
+                provider.Insert(entity);
+
+                #endregion
+
+                #region Act
+
+                provider.Insert(entity);
+
+                #endregion
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DbEntityProvider<IAuthor, Author, Guid>.EntityNotFoundException))]
+        public void DeleteFailTest()
+        {
+            using (var provider = Container.Resolve<IAuthorDbProvider>())
+            {
+
+                #region Act
+
+                provider.Delete(Guid.NewGuid());
+
+                #endregion
+            }
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            var provider = Container.Resolve<IAuthorDbProvider>();
-
-            while (true)
+            using (var provider = Container.Resolve<IAuthorDbProvider>())
             {
-                var entities = provider.GetPage(50);
-
-                if (!entities.Any())
+                while (true)
                 {
-                    break;
-                }
+                    var entities = provider.GetPage(50);
 
-                foreach (var entity in entities)
-                {
-                    provider.Delete(entity.Id);
+                    if (!entities.Any())
+                    {
+                        break;
+                    }
+
+                    foreach (var entity in entities)
+                    {
+                        provider.Delete(entity.Id);
+                    }
                 }
             }
         }

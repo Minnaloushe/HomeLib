@@ -11,4 +11,6 @@ AS
 		[LastName] = @LastName
 	WHERE [Id] = @Id;
 
+	SELECT @@ROWCOUNT
+
 RETURN 0

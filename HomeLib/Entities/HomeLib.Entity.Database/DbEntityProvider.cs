@@ -12,7 +12,7 @@ using Dapper;
 
 namespace HomeLib.Entity.Database
 {
-    public abstract class DbEntityProvider<T, TK, TKey> : IDbProvider<T, TK, TKey>, IDisposable where T : IBaseEntity<TKey> where TK : class, IBaseEntity<TKey>, T
+    public abstract class DbEntityProvider<T, TK, TKey> : IDbProvider<T, TK, TKey>where T : IBaseEntity<TKey> where TK : class, IBaseEntity<TKey>, T
     {
         private readonly IDbConnection _connection;
 
@@ -25,7 +25,12 @@ namespace HomeLib.Entity.Database
 
         public T GetById(TKey id)
         {
-            return _connection.Query<TK>(GetRetreiveCommandText(), new {Id = id}, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            var result = _connection.Query<TK>(GetRetreiveCommandText(), new {Id = id}, commandType: CommandType.StoredProcedure).SingleOrDefault();
+
+            if (result == null)
+                throw new EntityNotFoundException(id);
+
+            return result;
         }
 
         public void Insert(T entity)
@@ -35,15 +40,21 @@ namespace HomeLib.Entity.Database
 
         public void Update(T entity)
         {
-            _connection.Execute(GetUpdateCommandText(), entity, commandType: CommandType.StoredProcedure);
+            var val = _connection.ExecuteScalar<int>(GetUpdateCommandText(), entity,
+                commandType: CommandType.StoredProcedure);
+            if (val != 1)
+                throw new EntityNotFoundException(entity.Id);
         }
 
         public void Delete(TKey id)
         {
-            _connection.Execute(GetDeleteCommandText(), new {Id = id}, commandType: CommandType.StoredProcedure);
+            var val = _connection.ExecuteScalar<int>(GetDeleteCommandText(), new {Id = id},
+                commandType: CommandType.StoredProcedure);
+            if ( val != 1)
+                throw new EntityNotFoundException(id);
         }
 
-        protected virtual string GetTableName()
+        internal virtual string GetTableName()
         {
             return typeof (TK).Name;
         }
@@ -72,5 +83,24 @@ namespace HomeLib.Entity.Database
         {
             _connection.Dispose();
         }
+
+        #region Exceptions
+
+        public class DbProviderException : Exception
+        {
+
+        }
+
+        public class EntityNotFoundException : DbProviderException
+        {
+            public TKey EntityId { get; private set; }
+            public EntityNotFoundException(TKey id)
+            {
+                EntityId = id;
+            }
+        }
+
+        #endregion
     }
+
 }

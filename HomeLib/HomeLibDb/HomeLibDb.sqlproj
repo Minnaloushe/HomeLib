@@ -79,5 +79,16 @@
     <Build Include="dbo\Stored Procedures\Author_GetPage.sql" />
     <Build Include="dbo\Stored Procedures\Author_Delete.sql" />
     <Build Include="dbo\Stored Procedures\Author_Create.sql" />
+    <Build Include="dbo\Stored Procedures\Serie_GetPage.sql" />
+    <Build Include="dbo\Stored Procedures\Serie_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\Serie_Create.sql" />
+    <Build Include="dbo\Stored Procedures\Book_Update.sql" />
+    <Build Include="dbo\Stored Procedures\Book_Retreive.sql" />
+    <Build Include="dbo\Stored Procedures\Book_GetPage.sql" />
+    <Build Include="dbo\Stored Procedures\Book_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\Book_Create.sql" />
+    <Build Include="dbo\Stored Procedures\ArchiveFile_GetPage.sql" />
+    <Build Include="dbo\Stored Procedures\ArchiveFile_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\ArchiveFile_Create.sql" />
   </ItemGroup>
 </Project>

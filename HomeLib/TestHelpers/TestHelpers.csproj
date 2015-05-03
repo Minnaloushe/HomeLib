@@ -39,8 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StringHelper.cs" />
+    <Compile Include="EntityHelper.cs" />
+    <Compile Include="ValueHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\HomeLib.Entity.Interfaces\HomeLib.Entity.Interfaces.csproj">
+      <Project>{12D05EEB-2DE2-440E-B7AD-B764C0B2D926}</Project>
+      <Name>HomeLib.Entity.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

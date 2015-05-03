@@ -1,8 +1,8 @@
-﻿CREATE PROCEDURE [dbo].[Author_Delete]
+﻿CREATE PROCEDURE [dbo].[ArchiveFile_Delete]
 	@Id uniqueidentifier
 AS
 	DELETE
-	FROM [dbo].[Authors]
+	FROM [dbo].[ArchiveFiles]
 	WHERE [Id] = @Id;
 
 	SELECT @@ROWCOUNT
