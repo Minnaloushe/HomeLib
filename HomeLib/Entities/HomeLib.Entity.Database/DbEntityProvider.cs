@@ -12,9 +12,11 @@ using Dapper;
 
 namespace HomeLib.Entity.Database
 {
-    public abstract class DbEntityProvider<T, TKey> : IDbProvider<T, TKey>, IDisposable where T : IBaseEntity<TKey>
+    public abstract class DbEntityProvider<T, TK, TKey> : IDbProvider<T, TK, TKey>, IDisposable where T : IBaseEntity<TKey> where TK : class, IBaseEntity<TKey>, T
     {
         private readonly IDbConnection _connection;
+
+        protected IDbConnection Connection { get { return _connection; } }
 
         protected DbEntityProvider(IDbConnection connection)
         {
@@ -23,47 +25,47 @@ namespace HomeLib.Entity.Database
 
         public T GetById(TKey id)
         {
-            return _connection.ExecuteScalar<T>(GetRetreiveCommandText(), new {Id = id});
+            return _connection.Query<TK>(GetRetreiveCommandText(), new {Id = id}, commandType: CommandType.StoredProcedure).FirstOrDefault();
         }
 
         public void Insert(T entity)
         {
-            _connection.Execute(GetCreateCommandText(), entity);
+            _connection.Execute(GetCreateCommandText(), entity, commandType: CommandType.StoredProcedure);
         }
 
         public void Update(T entity)
         {
-            _connection.Execute(GetUpdateCommandText(), entity);
+            _connection.Execute(GetUpdateCommandText(), entity, commandType: CommandType.StoredProcedure);
         }
 
         public void Delete(TKey id)
         {
-            _connection.Execute(GetDeleteCommandText(), new {Id = id});
+            _connection.Execute(GetDeleteCommandText(), new {Id = id}, commandType: CommandType.StoredProcedure);
         }
 
         protected virtual string GetTableName()
         {
-            return typeof (T).ToString();
+            return typeof (TK).Name;
         }
 
         protected virtual string GetUpdateCommandText()
         {
-            return typeof (T) + "_Update";
+            return typeof (TK).Name + "_Update";
         }
 
         protected virtual string GetCreateCommandText()
         {
-            return typeof (T) + "_Create";
+            return typeof (TK).Name + "_Create";
         }
 
         protected virtual string GetDeleteCommandText()
         {
-            return typeof (T) + "_Delete";
+            return typeof (TK).Name + "_Delete";
         }
 
         protected virtual string GetRetreiveCommandText()
         {
-            return typeof (T) + "_Retreive";
+            return typeof (TK).Name + "_Retreive";
         }
 
         public void Dispose()

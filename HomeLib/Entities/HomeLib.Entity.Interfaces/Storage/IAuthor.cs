@@ -2,7 +2,7 @@ using System;
 
 namespace HomeLib.Entity.Interfaces.Storage
 {
-    public interface IAuthor : IBaseEntity<Guid>
+    public interface IAuthor : IBaseEntity<Guid>, IComparable<IAuthor>
     {
         string FirstName { get; set; }
         string MiddleName { get; set; }

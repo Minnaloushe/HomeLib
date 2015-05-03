@@ -9,5 +9,11 @@ namespace HomeLib.Entity.Database.DTO
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
+
+
+        public int CompareTo(IAuthor other)
+        {
+            return Id.CompareTo(other.Id);
+        }
     }
 }

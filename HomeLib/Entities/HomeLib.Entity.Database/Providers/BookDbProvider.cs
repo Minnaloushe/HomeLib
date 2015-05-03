@@ -5,21 +5,14 @@ using HomeLib.Entity.Interfaces.Storage;
 
 namespace HomeLib.Entity.Database.Providers
 {
-    public class BookDbProvider : DbEntityProvider<IBook, Guid>
+    public interface IBookDbProvider : IDbProvider<IBook, Book, Guid>
+    {
+        
+    }
+
+    public class BookDbProvider : DbEntityProvider<IBook, Book, Guid>, IBookDbProvider
     {
         public BookDbProvider(IDbConnection connection) : base(connection)
-        {
-        }
-    }
-    public class SerieDbProvider : DbEntityProvider<ISerie, Guid>
-    {
-        public SerieDbProvider(IDbConnection connection) : base(connection)
-        {
-        }
-    }
-    public class BookToAuthorLinkDbProvider : DbEntityProvider<IAuthorToBookLink, Guid>
-    {
-        public BookToAuthorLinkDbProvider(IDbConnection connection) : base(connection)
         {
         }
     }
